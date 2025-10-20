@@ -1,0 +1,245 @@
+{% extends "AutoP/base.html" %}
+
+{% block title %}
+{% if editing %}Edit{% else %}Sell{% endif %} Your Car - AutoMarket
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h2 class="h4 mb-0">
+                        <i class="bi bi-car-front me-2"></i>
+                        {% if editing %}Edit Your Car Listing{% else %}Sell Your Car{% endif %}
+                    </h2>
+                </div>
+                <div class="card-body p-5">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Basic Information -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h4 class="mb-3 border-bottom pb-2">Basic Information</h4>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.Brand.id_for_label }}" class="form-label">Brand*</label>
+                                    {{ form.Brand }}
+                                    {% if form.Brand.errors %}
+                                        <div class="text-danger">{{ form.Brand.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.Model.id_for_label }}" class="form-label">Model*</label>
+                                    {{ form.Model }}
+                                    {% if form.Model.errors %}
+                                        <div class="text-danger">{{ form.Model.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.Year.id_for_label }}" class="form-label">Year*</label>
+                                        {{ form.Year }}
+                                        {% if form.Year.errors %}
+                                            <div class="text-danger">{{ form.Year.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.mileage.id_for_label }}" class="form-label">Mileage*</label>
+                                        {{ form.mileage }}
+                                        {% if form.mileage.errors %}
+                                            <div class="text-danger">{{ form.mileage.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.Condition.id_for_label }}" class="form-label">Condition*</label>
+                                        {{ form.Condition }}
+                                        {% if form.Condition.errors %}
+                                            <div class="text-danger">{{ form.Condition.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.Fuel_Type.id_for_label }}" class="form-label">Fuel Type*</label>
+                                        {{ form.Fuel_Type }}
+                                        {% if form.Fuel_Type.errors %}
+                                            <div class="text-danger">{{ form.Fuel_Type.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.Color.id_for_label }}" class="form-label">Color*</label>
+                                    {{ form.Color }}
+                                    {% if form.Color.errors %}
+                                        <div class="text-danger">{{ form.Color.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.mpg_city.id_for_label }}" class="form-label">MPG (City)</label>
+                                    {{ form.mpg_city }}
+                                    {% if form.mpg_city.errors %}
+                                        <div class="text-danger">{{ form.mpg_city.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h4 class="mb-3 border-bottom pb-2">Pricing</h4>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.price.id_for_label }}" class="form-label">Price* ($)</label>
+                                    {{ form.price }}
+                                    {% if form.price.errors %}
+                                        <div class="text-danger">{{ form.price.errors }}</div>
+                                    {% endif %}
+                                    <div class="form-text">Enter the price in US dollars without commas or symbols.</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.description.id_for_label }}" class="form-label">Description*</label>
+                                    {{ form.description }}
+                                    {% if form.description.errors %}
+                                        <div class="text-danger">{{ form.description.errors }}</div>
+                                    {% endif %}
+                                    <div class="form-text">Describe your car's features, condition, history, and reason for selling.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Photos Section -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="mb-3 border-bottom pb-2">Photos</h4>
+                                <p class="text-muted">Upload photos of your car. The first photo will be the primary image shown in listings.</p>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-3 mb-3">
+                                        <label for="{{ form.photo1.id_for_label }}" class="form-label">Primary Photo*</label>
+                                        {{ form.photo1 }}
+                                        {% if form.photo1.errors %}
+                                            <div class="text-danger">{{ form.photo1.errors }}</div>
+                                        {% endif %}
+                                        <div class="form-text">{{ form.photo1.help_text }}</div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3 mb-3">
+                                        <label for="{{ form.photo2.id_for_label }}" class="form-label">Photo 2</label>
+                                        {{ form.photo2 }}
+                                        {% if form.photo2.errors %}
+                                            <div class="text-danger">{{ form.photo2.errors }}</div>
+                                        {% endif %}
+                                        <div class="form-text">{{ form.photo2.help_text }}</div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3 mb-3">
+                                        <label for="{{ form.photo3.id_for_label }}" class="form-label">Photo 3</label>
+                                        {{ form.photo3 }}
+                                        {% if form.photo3.errors %}
+                                            <div class="text-danger">{{ form.photo3.errors }}</div>
+                                        {% endif %}
+                                        <div class="form-text">{{ form.photo3.help_text }}</div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3 mb-3">
+                                        <label for="{{ form.photo4.id_for_label }}" class="form-label">Photo 4</label>
+                                        {{ form.photo4 }}
+                                        {% if form.photo4.errors %}
+                                            <div class="text-danger">{{ form.photo4.errors }}</div>
+                                        {% endif %}
+                                        <div class="form-text">{{ form.photo4.help_text }}</div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3 mb-3">
+                                        <label for="{{ form.photo5.id_for_label }}" class="form-label">Photo 5</label>
+                                        {{ form.photo5 }}
+                                        {% if form.photo5.errors %}
+                                            <div class="text-danger">{{ form.photo5.errors }}</div>
+                                        {% endif %}
+                                        <div class="form-text">{{ form.photo5.help_text }}</div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3 mb-3">
+                                        <label for="{{ form.photo6.id_for_label }}" class="form-label">Photo 6</label>
+                                        {{ form.photo6 }}
+                                        {% if form.photo6.errors %}
+                                            <div class="text-danger">{{ form.photo6.errors }}</div>
+                                        {% endif %}
+                                        <div class="form-text">{{ form.photo6.help_text }}</div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3 mb-3">
+                                        <label for="{{ form.photo7.id_for_label }}" class="form-label">Photo 7</label>
+                                        {{ form.photo7 }}
+                                        {% if form.photo7.errors %}
+                                            <div class="text-danger">{{ form.photo7.errors }}</div>
+                                        {% endif %}
+                                        <div class="form-text">{{ form.photo7.help_text }}</div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3 mb-3">
+                                        <label for="{{ form.photo8.id_for_label }}" class="form-label">Photo 8</label>
+                                        {{ form.photo8 }}
+                                        {% if form.photo8.errors %}
+                                            <div class="text-danger">{{ form.photo8.errors }}</div>
+                                        {% endif %}
+                                        <div class="form-text">{{ form.photo8.help_text }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% if editing %}{% url 'car_detail' car.id %}{% else %}{% url 'car_listings' %}{% endif %}" 
+                               class="btn btn-outline-secondary me-md-2">Cancel</a>
+                            <button type="submit" class="btn btn-primary">
+                                {% if editing %}Update Listing{% else %}List My Car{% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Tips for sellers -->
+            <div class="card mt-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Tips for a Successful Listing</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-0">
+                        <li>Use high-quality, clear photos from multiple angles</li>
+                        <li>Be honest about the condition of your vehicle</li>
+                        <li>Include all relevant features and recent repairs</li>
+                        <li>Price competitively by researching similar listings</li>
+                        <li>Respond promptly to inquiries from potential buyers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 0.5rem;
+    }
+    .card-header {
+        border-radius: 0.5rem 0.5rem 0 0 !important;
+    }
+    .form-label {
+        font-weight: 500;
+    }
+    .border-bottom {
+        border-color: #dee2e6 !important;
+    }
+</style>
+{% endblock %}

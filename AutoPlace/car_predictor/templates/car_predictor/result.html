@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result - Car Price Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h2>🎯 Prediction Result</h2>
+            </div>
+            <div class="card-body">
+                <h3 class="text-center mb-4">Predicted Car Price: <strong>${{ predicted_price|floatformat:2 }}</strong></h3>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>📋 Input Details:</h4>
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>Company:</strong> {{ input_data.Company_Names }}</li>
+                            <li class="list-group-item"><strong>Horsepower:</strong> {{ input_data.HorsePower_Clean }}</li>
+                            <li class="list-group-item"><strong>Torque:</strong> {{ input_data.Torque_Clean }} Nm</li>
+                            <li class="list-group-item"><strong>0-100 km/h:</strong> {{ input_data.Performance_Clean }} seconds</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>⚙️ Specifications:</h4>
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>Top Speed:</strong> {{ input_data.TotalSpeed_Clean }} km/h</li>
+                            <li class="list-group-item"><strong>Engine CC:</strong> {{ input_data.Engine_CC }}</li>
+                            <li class="list-group-item"><strong>Fuel Type:</strong> {{ input_data.Fuel_Types }}</li>
+                            <li class="list-group-item"><strong>Seats:</strong> {{ input_data.Seats_Clean }}</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <a href="{% url 'predict_car_price' %}" class="btn btn-primary">🔁 Make Another Prediction</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

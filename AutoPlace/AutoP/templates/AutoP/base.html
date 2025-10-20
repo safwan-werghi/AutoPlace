@@ -1,0 +1,40 @@
+<html>
+<head>
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+  {% block title %}
+
+   {% endblock %}
+  </title>
+  <style type="text/css">
+    .sidenav { height:100%; width:160px; position:fixed; z-index:1; top:0; left:0; background-color:#111; 
+    overflow-x:hidde; padding-top:20px;  }
+    .sidenav a { padding:6px 8px 6px 16px; text-decoration:none; color:#818181; display:block; font-size:25px;}
+    .sidenav a:hover{ color:f1f1f1;}
+    .main { margin-left:160px; padding:0px 10px; }
+  </style>
+</head>
+
+<body>
+
+
+
+<div id="content",name="content" class="main">
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <h1 class="mt-2 fw-bold display-4" style="background: linear-gradient(90deg, #ff8a00, #e52e71); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block;">
+  AutoMarket
+</h1>
+      <hr class="mt-0 mb-4"/>
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

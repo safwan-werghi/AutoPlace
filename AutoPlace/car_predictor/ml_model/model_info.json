@@ -1,0 +1,5 @@
+{
+    "feature_names": ["HorsePower_Clean", "Torque_Clean", "Performance_Clean", "TotalSpeed_Clean", "Engine_CC", "Company Names", "Fuel Types"],
+    "model_version": "1.0",
+    "training_date": "2024-01-01T00:00:00.000000"
+}
